@@ -10,11 +10,13 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 class LinReg:
-    learning_rate=.001
+    learning_rate=.0001
     m=0
     b=0
     err=0
     def fit(self,df):
+        m_grad=0
+        b_grad=0
         
         for x in range(0,df.values.shape[0]):
                 y_pred=self.m*df.values[x,0]+self.b
@@ -26,10 +28,14 @@ class LinReg:
                     self.learning_rate+=self.learning_rate*.05
                 """
                 
-                self.err=error
-                self.m=self.m - (self.err * df.values[x,0] * self.learning_rate/df.values.shape[0])
-                self.b=self.b - (self.err * self.learning_rate/df.values.shape[0])
-                    
+                m_grad+=error*df.values[x,0]/df.values.shape[0]
+                b_grad+=error/df.values.shape[0]
+                
+        
+        
+        self.m=self.m - m_grad * self.learning_rate
+        self.b=self.b - b_grad * self.learning_rate
+        print(self.m,self.b)           
         
         
     def predict(self,x):
@@ -43,7 +49,7 @@ lr=LinReg()
 
 
 ##Call this 100 times for fradient adjustment
-for i in range(100):
+for i in range(500):
     lr.fit(dataset_test)
 
 #Vevtorize numpy array to apply predict function to every element. Returns a numpy array    
