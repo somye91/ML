@@ -11,7 +11,7 @@ import numpy as np
 
 class LinReg:
     learning_rate=.001
-    m=1.3
+    m=0
     b=0
     err=0
     def fit(self,df):
@@ -25,12 +25,11 @@ class LinReg:
                 else:
                     self.learning_rate+=self.learning_rate*.05
                 """
-                if True:
-                    self.err=error
-                    #print(y_pred,self.err,df.values[x,0],self.learning_rate,"Equal",self.err * df.values[x,0] * self.learning_rate)
-                    self.m=self.m - (self.err * df.values[x,0] * self.learning_rate/700)
-                    self.b=self.b - (self.err * self.learning_rate/700)
-                    #print(self.m,self.b)
+                
+                self.err=error
+                self.m=self.m - (self.err * df.values[x,0] * self.learning_rate/df.values.shape[0])
+                self.b=self.b - (self.err * self.learning_rate/df.values.shape[0])
+                    
         
         
     def predict(self,x):
@@ -39,10 +38,9 @@ class LinReg:
     
 dataset_train=pd.read_csv("C:/Users/Somye/Downloads/random-linear-regression/train.csv")
 dataset_test=pd.read_csv("C:/Users/Somye/Downloads/random-linear-regression/test.csv")
-#X_train=dataset_train.iloc[:,0].values
-#y_train=dataset_train.iloc[:,1].values
+
 lr=LinReg()
-#plt.ion()
+
 
 ##Call this 100 times for fradient adjustment
 for i in range(100):
