@@ -10,11 +10,12 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 class LinReg:
-    learning_rate=.0001
+    learning_rate=.001
     m=0
     b=0
     err=0
-    def fit(self,df):
+    cf=np.zeros((500,2))  #numpy array to store cost to plot the cost function graph
+    def fit(self,df,i):
         m_grad=0
         b_grad=0
         
@@ -32,7 +33,8 @@ class LinReg:
                 b_grad+=error/df.values.shape[0]
                 
         
-        
+        self.cf[i,0]=i
+        self.cf[i,1]=m_grad
         self.m=self.m - m_grad * self.learning_rate
         self.b=self.b - b_grad * self.learning_rate
         print(self.m,self.b)           
@@ -50,13 +52,14 @@ lr=LinReg()
 
 ##Call this 100 times for fradient adjustment
 for i in range(500):
-    lr.fit(dataset_test)
+    lr.fit(dataset_test,i)
 
 #Vevtorize numpy array to apply predict function to every element. Returns a numpy array    
 vfunc=np.vectorize(lr.predict)
 pred_y=vfunc(dataset_test.iloc[:,0].values)
-plt.scatter(dataset_test.iloc[:,0],dataset_test.iloc[:,1],color='blue')
-plt.plot(dataset_test.iloc[:,0],pred_y,color='red')
+#plt.scatter(dataset_test.iloc[:,0],dataset_test.iloc[:,1],color='blue')
+#plt.plot(dataset_test.iloc[:,0],pred_y,color='red')
+plt.plot(lr.cf[:,0],lr.cf[:,1],color='blue')
 plt.show()
-     
+print(lr.cf)
 #print(a)
