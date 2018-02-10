@@ -24,6 +24,7 @@ class LogReg:
     
     def fit(self,X,y,weights,iteration,lr):
         self.weights=weights
+        
         self.costhist=[]
         for i in range(iteration):
             pred=self.predict(X,weights)
@@ -63,6 +64,10 @@ X_full = data.data[:100, :]
 # 1 to 50 are 0   Setosa
 # 51 to 100 are 1   Versicolor
 
+##ou can easily incorporate intercept by adding a colum of ones into your X:
+##Bias
+X = np.hstack([np.ones([X.shape[0],1]), X])
+X = np.hstack([np.ones([X.shape[0],1]), X])
 weights=np.zeros(X.shape[1]) 
 logreg=LogReg()
 iteration=100000
