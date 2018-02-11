@@ -67,7 +67,6 @@ X_full = data.data[:100, :]
 ##ou can easily incorporate intercept by adding a colum of ones into your X:
 ##Bias
 X = np.hstack([np.ones([X.shape[0],1]), X])
-X = np.hstack([np.ones([X.shape[0],1]), X])
 weights=np.zeros(X.shape[1]) 
 logreg=LogReg()
 iteration=100000
@@ -76,6 +75,6 @@ logreg.fit(X,y,weights,iteration,lr)
 
 print(logreg.classify(logreg.predict(X,logreg.weights)))
 a=np.array(logreg.costhist)
-plt.plot(a[1:,0],a[1:,1])  #Cost function plot
+plt.plot(a[:,0],a[:,1])  #Cost function plot
 
     
