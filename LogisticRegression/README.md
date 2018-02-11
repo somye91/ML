@@ -1,3 +1,5 @@
+This example works with the Iris dataset. We will classify only the first two flowers that are present in firsto 100 rows in the dataset.
+
 The input vector is of dimension X = M x F
 F=number o features
 M= number of samples
